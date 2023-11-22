@@ -8,7 +8,8 @@ const app = express();
 //middleware
 app.use(express.json())
 
-const baseLogs = []
+const baseLogs = {}
+let id = 1
 
 app.get('/logs', (req, res) => res.send(baseLogs))  
 
@@ -17,10 +18,11 @@ app.post('/eventos', (req, res) => {
     const d = new Date();
     let time = d.toLocaleTimeString();
     let date = d.toLocaleDateString();
-    baseLogs.push({
+    baseLogs[id] = {
         tipo: req.body.type,
         data: date + "|" + time 
-    })
+    }
+    id++
   }
   catch(e){}
   res.status(200).end() 
